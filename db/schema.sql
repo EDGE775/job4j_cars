@@ -46,6 +46,7 @@ CREATE TABLE announcements
     id          SERIAL PRIMARY KEY,
     description TEXT                      not null,
     sold        boolean                   not null,
+    created     timestamp                 not null,
     car_id      int references cars (id)  not null unique,
     user_id     int references users (id) not null
 );
