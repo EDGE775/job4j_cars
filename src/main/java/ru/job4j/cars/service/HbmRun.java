@@ -5,7 +5,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.query.Query;
 import ru.job4j.cars.model.*;
 
 public class HbmRun {
@@ -28,24 +27,18 @@ public class HbmRun {
             Model model = new Model("Note", mark, bodyType, transmission);
             Car car = new Car("Описание машины", "Blue", model);
 
-            User proxyUser = session.load(User.class, user.getId());
+            User proxyUser = session.load(User.class, 4);
             Announcement announcement = new Announcement(
-                    "Продам машину", car, proxyUser);
+                    "Продам машину", 500000D, car, proxyUser);
             proxyUser.addAnnouncement(announcement);
 
-            Image image1 = new Image("image 1", announcement);
-            Image image2 = new Image("image 2", announcement);
+            Image image1 = new Image("image 33");
+            Image image2 = new Image("image 44");
 
             announcement.addImage(image1);
             announcement.addImage(image2);
 
             session.save(announcement);
-
-            Query query = session.createQuery(
-                    "select distinct a from Announcement a join fetch a.images where a.id = :id"
-            );
-            query.setParameter("id", announcement.getId());
-            result = (Announcement) query.getSingleResult();
 
             session.getTransaction().commit();
             session.close();

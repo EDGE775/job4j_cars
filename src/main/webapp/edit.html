@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script>
+        $(function () {
+            $("#includeHeader").load("header.html");
+        });
+
+        $(document).ready(function () {
+            setUserName();
+        });
+    </script>
+
+    <title>Площадка продажи машин</title>
+</head>
+<body>
+<div class="container pt-3">
+    <div class="row">
+        <div id="includeHeader"></div>
+    </div>
+    <div class="row">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Создание объявления
+            </div>
+            <div class="card-body">
+                <form action="/cars/announce" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Описание объявления</label>
+                        <textarea type="text" class="form-control" name="description" id="description" title="Заполните описание!" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Марка автомобиля</label>
+                        <input type="text" class="form-control" name="mark" id="mark" title="Заполните марку автомобиля!" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Модель автомобиля</label>
+                        <input type="text" class="form-control" name="model" id="model" title="Заполните модель автомобиля!" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bodyType">Тип кузова</label>
+                        <select id="bodyType" class="form-control" name="bodyType" title="Выберите тип кузова!" required>
+                            <option selected disabled value="">Выберите тип кузова</option>
+                            <option value="Седан">Седан</option>
+                            <option value="Универсал">Универсал</option>
+                            <option value="Хетчбек">Хетчбек</option>
+                            <option value="Джип">Джип</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="transmission">Тип трансмиссии</label>
+                        <select id="transmission" class="form-control" name="transmission" title="Выберите тип трансмиссии!" required>
+                            <option selected disabled value="">Выберите тип трансмиссии</option>
+                            <option value="Механическая">Механическая</option>
+                            <option value="Автоматическая">Автоматическая</option>
+                            <option value="Робот">Робот</option>
+                            <option value="Вариатор">Вариатор</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="colour">Цвет</label>
+                        <select id="colour" class="form-control" name="colour" title="Выберите цвет!" required>
+                            <option selected disabled value="">Выберите цвет</option>
+                            <option value="Синий">Синий</option>
+                            <option value="Красный">Красный</option>
+                            <option value="Зелёный">Зелёный</option>
+                            <option value="Чёрный">Чёрный</option>
+                            <option value="Серый">Серый</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Цена</label>
+                        <input type="text" class="form-control" name="price" id="price" title="Заполните цену автомобиля!" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Фотографии</label>
+                        <div class="checkbox">
+                            <input type="file" name="image" onchange="showPhoto(this)">
+                            <img id="photo" align="middle" onerror="this.style.display='none'" width="300px" height="200px"/>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="return validate();">Подать объявление</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

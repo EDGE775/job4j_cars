@@ -14,7 +14,7 @@ public class Car {
 
     private String colour;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "model_id")
     private Model model;
 
@@ -74,5 +74,15 @@ public class Car {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Car{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", colour='" + colour + '\''
+                + ", model=" + model
+                + '}';
     }
 }

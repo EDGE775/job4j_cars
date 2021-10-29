@@ -1,6 +1,11 @@
 package ru.job4j.cars.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 @Entity
@@ -12,15 +17,24 @@ public class Image {
 
     private String name;
 
-    @ManyToOne
-    private Announcement announcement;
+    @Lob
+    @Type(type = "org.hibernate.type.BinaryType")
+    @Column(name = "photo", columnDefinition = "BLOB")
+    private byte[] photo;
 
     public Image() {
     }
 
-    public Image(String name, Announcement announcement) {
+    public Image(String name) {
         this.name = name;
-        this.announcement = announcement;
+    }
+
+    public void loadPhoto(String path) {
+        try (FileInputStream in = new FileInputStream(new File(path))) {
+            this.photo = in.readAllBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getId() {
@@ -39,12 +53,12 @@ public class Image {
         this.name = name;
     }
 
-    public Announcement getAnnouncement() {
-        return announcement;
+    public byte[] getPhoto() {
+        return photo;
     }
 
-    public void setAnnouncement(Announcement announcement) {
-        this.announcement = announcement;
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     @Override
@@ -62,5 +76,13 @@ public class Image {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Image{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + '}';
     }
 }

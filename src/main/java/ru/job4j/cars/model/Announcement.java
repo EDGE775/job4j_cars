@@ -17,25 +17,29 @@ public class Announcement {
 
     private boolean sold = false;
 
+    private double price;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date created = new Date(System.currentTimeMillis());
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "announcement",
+    @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "announcement_id")
     private List<Image> images = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     public Announcement() {
     }
 
-    public Announcement(String description, Car car, User user) {
+    public Announcement(String description, double price, Car car, User user) {
         this.description = description;
+        this.price = price;
         this.car = car;
         this.user = user;
     }
@@ -92,6 +96,22 @@ public class Announcement {
         this.user = user;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -114,9 +134,9 @@ public class Announcement {
         return "Announcement{"
                 + "id=" + id + ", description='" + description + '\''
                 + ", sold=" + sold
+                + ", price=" + price
                 + ", car=" + car
                 + ", images=" + images
-                + ", user=" + user
                 + '}';
     }
 }

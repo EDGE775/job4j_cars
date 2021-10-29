@@ -9,19 +9,19 @@ CREATE TABLE users
 CREATE TABLE marks
 (
     id   SERIAL PRIMARY KEY,
-    name TEXT not null
+    name TEXT unique not null
 );
 
 CREATE TABLE bodytypes
 (
     id   SERIAL PRIMARY KEY,
-    name TEXT not null
+    name TEXT unique not null
 );
 
 CREATE TABLE transmissions
 (
     id   SERIAL PRIMARY KEY,
-    name TEXT not null
+    name TEXT unique not null
 );
 
 CREATE TABLE models
@@ -53,7 +53,8 @@ CREATE TABLE announcements
 
 CREATE TABLE images
 (
-    id      SERIAL PRIMARY KEY,
-    name    TEXT                              not null,
-    item_id int references announcements (id) not null
+    id              SERIAL PRIMARY KEY,
+    name            TEXT                              not null,
+    photo           bytea,
+    announcement_id int references announcements (id) not null
 );
