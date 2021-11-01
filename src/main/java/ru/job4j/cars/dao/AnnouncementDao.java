@@ -8,20 +8,6 @@ import java.util.List;
 
 public class AnnouncementDao extends AbstractDao {
 
-    public <T> T saveEntity(T model) {
-        this.getSession(session -> session.save(model));
-        return model;
-    }
-
-    public <T> T updateEntity(T model) {
-        this.getSession(
-                session -> {
-                    session.update(model);
-                    return model;
-                });
-        return model;
-    }
-
     public Mark findMarkByName(String name) {
         return this.getSession(
                 session -> {

@@ -6,11 +6,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.cars.utils.HbmSessionFactory;
 
+import java.util.List;
 import java.util.function.Function;
 
 public abstract class AbstractDao implements AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(AnnouncementDao.class.getName());
+
+    public <T> T saveEntity(T model) {
+        this.getSession(session -> session.save(model));
+        return model;
+    }
+
+    public <T> T updateEntity(T model) {
+        this.getSession(
+                session -> {
+                    session.update(model);
+                    return model;
+                });
+        return model;
+    }
+
+    public <T> List<T> findAllEntities(Class<T> cl) {
+        return this.getSession(
+                session -> {
+                    return session.createQuery("from " + cl.getName(), cl).list();
+                });
+    }
 
     protected <T> T getSession(final Function<Session, T> command) {
         final Session session = HbmSessionFactory

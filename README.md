@@ -1,5 +1,6 @@
 # Project job4j_cars
 [![Build Status](https://app.travis-ci.com/EDGE775/job4j_cars.svg?branch=master)](https://app.travis-ci.com/EDGE775/job4j_cars)
+[![codecov](https://codecov.io/gh/EDGE775/job4j_cars/branch/master/graph/badge.svg?token=ZA982DWQHI)](https://codecov.io/gh/EDGE775/job4j_cars)
 
 > This webapp realizes CRUD-system (create-read-update-delete) with using of principle of MVC (model-view-controller).
 
@@ -20,7 +21,7 @@ You can filter ads by brand, status, etc.
 ## Technologies
 * Java 17
 * Java EE Servlets
-* PostgreSQL
+* PostgreSQL, HSQLDB
 * Hibernate
 * Apache TomCat
 * Libraries:
@@ -28,6 +29,7 @@ You can filter ads by brand, status, etc.
     - GSON
 * Javascript, jQuery, HTML, Bootstrap
 * Maven
+* Junit
 
 ## Compilation
 ```

@@ -51,10 +51,12 @@ public class HbmService {
         Model persistModel = annoDao
                 .findModelWithConfig(model, persistMark, persistBodyType, persistTrans);
         if (persistModel == null) {
-            persistModel = annoDao.saveEntity(new Model(model, persistMark, persistBodyType, persistTrans));
+            persistModel = annoDao.saveEntity(
+                    new Model(model, persistMark, persistBodyType, persistTrans));
         }
 
-        Car car = new Car(String.format("%s %s, цвет: %s, кузов: %s", mark, model, colour, bodyType), colour, persistModel);
+        Car car = new Car(
+                getCarNameForAnnoTitle(mark, model, bodyType, colour), colour, persistModel);
         Announcement announcement = new Announcement(description, price, car, user);
         images.forEach(announcement::addImage);
 
@@ -91,6 +93,19 @@ public class HbmService {
 
     public List<Announcement> findAllAnnouncementsWithMark(String mark) {
         return annoDao.findAllAnnouncementsWithMark(mark);
+    }
+
+    public List<Model> findAllModels() {
+        return annoDao.findAllEntities(Model.class);
+    }
+
+    public List<Car> findAllCars() {
+        return annoDao.findAllEntities(Car.class);
+    }
+
+    private String getCarNameForAnnoTitle(String mark, String model, String bodyType, String colour) {
+        return String.format(
+                "%s %s, цвет: %s, кузов: %s", mark, model, colour, bodyType);
     }
 
     private static final class Lazy {
